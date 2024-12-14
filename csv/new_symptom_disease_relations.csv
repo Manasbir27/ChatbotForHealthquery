@@ -1,0 +1,420 @@
+Symptom,Disease,Relation
+fatigue,Bronchial Asthma,has_symptom
+fatigue,COVID-19,has_symptom
+fatigue,Chicken pox,has_symptom
+fatigue,Common Cold,has_symptom
+fatigue,Dengue,has_symptom
+fatigue,Diabetes,has_symptom
+fatigue,Hepatitis B,has_symptom
+fatigue,Hepatitis C,has_symptom
+fatigue,Hepatitis D,has_symptom
+fatigue,Hepatitis E,has_symptom
+fatigue,Hyperthyroidism,has_symptom
+fatigue,Hypoglycemia,has_symptom
+fatigue,Hypothyroidism,has_symptom
+fatigue,Influenza (Flu),has_symptom
+fatigue,Jaundice,has_symptom
+fatigue,Pneumonia,has_symptom
+fatigue,Tuberculosis,has_symptom
+fatigue,Tuberculosis (TB),has_symptom
+fatigue,Typhoid,has_symptom
+fatigue,Varicose veins,has_symptom
+fever,AIDS,has_symptom
+fever,Bronchial Asthma,has_symptom
+fever,COVID-19,has_symptom
+fever,Chicken pox,has_symptom
+fever,Chickenpox,has_symptom
+fever,Common Cold,has_symptom
+fever,Dengue,has_symptom
+fever,Dengue Fever,has_symptom
+fever,Gastroenteritis,has_symptom
+fever,Hepatitis E,has_symptom
+fever,Impetigo,has_symptom
+fever,Influenza (Flu),has_symptom
+fever,Jaundice,has_symptom
+fever,Malaria,has_symptom
+fever,Meningitis,has_symptom
+fever,Pneumonia,has_symptom
+fever,Tuberculosis,has_symptom
+fever,Tuberculosis (TB),has_symptom
+fever,Typhoid,has_symptom
+fever,hepatitis A,has_symptom
+vomiting,(vertigo) Paroymsal  Positional Vertigo,has_symptom
+vomiting,Alcoholic hepatitis,has_symptom
+vomiting,COVID-19,has_symptom
+vomiting,Chronic cholestasis,has_symptom
+vomiting,Dengue,has_symptom
+vomiting,GERD,has_symptom
+vomiting,Gastroenteritis,has_symptom
+vomiting,Heart attack,has_symptom
+vomiting,Hepatitis D,has_symptom
+vomiting,Hepatitis E,has_symptom
+vomiting,Hypoglycemia,has_symptom
+vomiting,Jaundice,has_symptom
+vomiting,Malaria,has_symptom
+vomiting,Migraine,has_symptom
+vomiting,Paralysis (brain hemorrhage),has_symptom
+vomiting,Peptic ulcer diseae,has_symptom
+vomiting,Tuberculosis,has_symptom
+vomiting,Typhoid,has_symptom
+vomiting,hepatitis A,has_symptom
+nausea,(vertigo) Paroymsal  Positional Vertigo,has_symptom
+nausea,COVID-19,has_symptom
+nausea,Chronic cholestasis,has_symptom
+nausea,Dengue,has_symptom
+nausea,Gastroenteritis,has_symptom
+nausea,Hepatitis C,has_symptom
+nausea,Hepatitis D,has_symptom
+nausea,Hepatitis E,has_symptom
+nausea,Hypoglycemia,has_symptom
+nausea,Malaria,has_symptom
+nausea,Meningitis,has_symptom
+nausea,Migraine,has_symptom
+nausea,Pneumonia,has_symptom
+nausea,Typhoid,has_symptom
+nausea,hepatitis A,has_symptom
+headache,(vertigo) Paroymsal  Positional Vertigo,has_symptom
+headache,COVID-19,has_symptom
+headache,Chicken pox,has_symptom
+headache,Common Cold,has_symptom
+headache,Dengue,has_symptom
+headache,Dengue Fever,has_symptom
+headache,Hypertension,has_symptom
+headache,Hypoglycemia,has_symptom
+headache,Malaria,has_symptom
+headache,Meningitis,has_symptom
+headache,Migraine,has_symptom
+headache,Paralysis (brain hemorrhage),has_symptom
+headache,Typhoid,has_symptom
+loss of appetite,Chicken pox,has_symptom
+loss of appetite,Chickenpox,has_symptom
+loss of appetite,Chronic cholestasis,has_symptom
+loss of appetite,Dengue,has_symptom
+loss of appetite,Hepatitis B,has_symptom
+loss of appetite,Hepatitis C,has_symptom
+loss of appetite,Hepatitis D,has_symptom
+loss of appetite,Hepatitis E,has_symptom
+loss of appetite,Peptic ulcer diseae,has_symptom
+loss of appetite,Tuberculosis,has_symptom
+loss of appetite,hepatitis A,has_symptom
+abdominal pain,Alcoholic hepatitis,has_symptom
+abdominal pain,Chronic cholestasis,has_symptom
+abdominal pain,Hepatitis B,has_symptom
+abdominal pain,Hepatitis D,has_symptom
+abdominal pain,Hepatitis E,has_symptom
+abdominal pain,Jaundice,has_symptom
+abdominal pain,Peptic ulcer diseae,has_symptom
+abdominal pain,Typhoid,has_symptom
+abdominal pain,hepatitis A,has_symptom
+cough,Asthma,has_symptom
+cough,Bronchial Asthma,has_symptom
+cough,COVID-19,has_symptom
+cough,Common Cold,has_symptom
+cough,GERD,has_symptom
+cough,Influenza (Flu),has_symptom
+cough,Pneumonia,has_symptom
+cough,Tuberculosis,has_symptom
+chills,Allergy,has_symptom
+chills,Common Cold,has_symptom
+chills,Dengue,has_symptom
+chills,Influenza (Flu),has_symptom
+chills,Malaria,has_symptom
+chills,Pneumonia,has_symptom
+chills,Tuberculosis,has_symptom
+chills,Typhoid,has_symptom
+yellowish skin,Alcoholic hepatitis,has_symptom
+yellowish skin,Chronic cholestasis,has_symptom
+yellowish skin,Hepatitis B,has_symptom
+yellowish skin,Hepatitis C,has_symptom
+yellowish skin,Hepatitis D,has_symptom
+yellowish skin,Hepatitis E,has_symptom
+yellowish skin,Jaundice,has_symptom
+yellowish skin,hepatitis A,has_symptom
+itching,Chicken pox,has_symptom
+itching,Chronic cholestasis,has_symptom
+itching,Drug Reaction,has_symptom
+itching,Fungal infection,has_symptom
+itching,Hepatitis B,has_symptom
+itching,Jaundice,has_symptom
+itching,Psoriasis,has_symptom
+joint pain,Arthritis,has_symptom
+joint pain,Dengue,has_symptom
+joint pain,Hepatitis D,has_symptom
+joint pain,Hepatitis E,has_symptom
+joint pain,Osteoarthristis,has_symptom
+joint pain,Psoriasis,has_symptom
+joint pain,hepatitis A,has_symptom
+yellowing of eyes,Chronic cholestasis,has_symptom
+yellowing of eyes,Hepatitis B,has_symptom
+yellowing of eyes,Hepatitis C,has_symptom
+yellowing of eyes,Hepatitis D,has_symptom
+yellowing of eyes,Hepatitis E,has_symptom
+yellowing of eyes,Tuberculosis,has_symptom
+yellowing of eyes,hepatitis A,has_symptom
+skin rash,Acne,has_symptom
+skin rash,Chicken pox,has_symptom
+skin rash,Dengue,has_symptom
+skin rash,Drug Reaction,has_symptom
+skin rash,Fungal infection,has_symptom
+skin rash,Impetigo,has_symptom
+skin rash,Psoriasis,has_symptom
+chest pain,Common Cold,has_symptom
+chest pain,GERD,has_symptom
+chest pain,Heart attack,has_symptom
+chest pain,Hypertension,has_symptom
+chest pain,Pneumonia,has_symptom
+chest pain,Tuberculosis,has_symptom
+sweating,Heart attack,has_symptom
+sweating,Hyperthyroidism,has_symptom
+sweating,Hypoglycemia,has_symptom
+sweating,Malaria,has_symptom
+sweating,Pneumonia,has_symptom
+sweating,Tuberculosis,has_symptom
+malaise,Chicken pox,has_symptom
+malaise,Common Cold,has_symptom
+malaise,Dengue,has_symptom
+malaise,Hepatitis B,has_symptom
+malaise,Pneumonia,has_symptom
+malaise,Tuberculosis,has_symptom
+irritability,Depression,has_symptom
+irritability,Hyperthyroidism,has_symptom
+irritability,Hypoglycemia,has_symptom
+irritability,Hypothyroidism,has_symptom
+irritability,Migraine,has_symptom
+dark urine,Hepatitis B,has_symptom
+dark urine,Hepatitis D,has_symptom
+dark urine,Hepatitis E,has_symptom
+dark urine,Jaundice,has_symptom
+dark urine,hepatitis A,has_symptom
+diarrhoea,Gastroenteritis,has_symptom
+diarrhoea,Hyperthyroidism,has_symptom
+diarrhoea,Malaria,has_symptom
+diarrhoea,Typhoid,has_symptom
+diarrhoea,hepatitis A,has_symptom
+weight loss,Diabetes,has_symptom
+weight loss,Hyperthyroidism,has_symptom
+weight loss,Jaundice,has_symptom
+weight loss,Tuberculosis,has_symptom
+weight loss,Tuberculosis (TB),has_symptom
+muscle pain,Common Cold,has_symptom
+muscle pain,Dengue,has_symptom
+muscle pain,Malaria,has_symptom
+muscle pain,hepatitis A,has_symptom
+breathlessness,Bronchial Asthma,has_symptom
+breathlessness,Heart attack,has_symptom
+breathlessness,Pneumonia,has_symptom
+breathlessness,Tuberculosis,has_symptom
+lethargy,Chicken pox,has_symptom
+lethargy,Diabetes,has_symptom
+lethargy,Hepatitis B,has_symptom
+lethargy,Hypothyroidism,has_symptom
+excessive hunger,Diabetes,has_symptom
+excessive hunger,Hyperthyroidism,has_symptom
+excessive hunger,Hypoglycemia,has_symptom
+excessive hunger,Migraine,has_symptom
+sore throat,COVID-19,has_symptom
+sore throat,Common Cold,has_symptom
+sore throat,Influenza (Flu),has_symptom
+loss of balance,(vertigo) Paroymsal  Positional Vertigo,has_symptom
+loss of balance,Cervical spondylosis,has_symptom
+loss of balance,Hypertension,has_symptom
+phlegm,Common Cold,has_symptom
+phlegm,Pneumonia,has_symptom
+phlegm,Tuberculosis,has_symptom
+stiff neck,Arthritis,has_symptom
+stiff neck,Meningitis,has_symptom
+stiff neck,Migraine,has_symptom
+dizziness,Cervical spondylosis,has_symptom
+dizziness,Hypertension,has_symptom
+dizziness,Hypothyroidism,has_symptom
+blurred and distorted vision,Diabetes,has_symptom
+blurred and distorted vision,Hypoglycemia,has_symptom
+blurred and distorted vision,Migraine,has_symptom
+constipation,Dimorphic hemmorhoids(piles),has_symptom
+constipation,Hypothyroidism,has_symptom
+constipation,Typhoid,has_symptom
+diarrhea,COVID-19,has_symptom
+diarrhea,Cholera,has_symptom
+diarrhea,Gastroenteritis,has_symptom
+swelled lymph nodes,Chicken pox,has_symptom
+swelled lymph nodes,Common Cold,has_symptom
+swelled lymph nodes,Tuberculosis,has_symptom
+red spots over body,Chicken pox,has_symptom
+red spots over body,Dengue,has_symptom
+stomach pain,Drug Reaction,has_symptom
+stomach pain,GERD,has_symptom
+dehydration,Cholera,has_symptom
+dehydration,Gastroenteritis,has_symptom
+restlessness,Diabetes,has_symptom
+restlessness,Hyperthyroidism,has_symptom
+burning micturition,Drug Reaction,has_symptom
+burning micturition,Urinary tract infection,has_symptom
+obesity,Diabetes,has_symptom
+obesity,Varicose veins,has_symptom
+increased appetite,Diabetes,has_symptom
+increased appetite,Hyperthyroidism,has_symptom
+runny nose,COVID-19,has_symptom
+runny nose,Common Cold,has_symptom
+pain behind the eyes,Dengue,has_symptom
+pain behind the eyes,Dengue Fever,has_symptom
+neck pain,Cervical spondylosis,has_symptom
+neck pain,Osteoarthristis,has_symptom
+tiredness,COVID-19,has_symptom
+tiredness,Chickenpox,has_symptom
+abnormal menstruation,Hyperthyroidism,has_symptom
+abnormal menstruation,Hypothyroidism,has_symptom
+indigestion,Migraine,has_symptom
+indigestion,Peptic ulcer diseae,has_symptom
+dry skin,Hypothyroidism,has_symptom
+dry skin,Psoriasis,has_symptom
+depression,Hypothyroidism,has_symptom
+depression,Migraine,has_symptom
+acidity,GERD,has_symptom
+acidity,Migraine,has_symptom
+mood swings,Hyperthyroidism,has_symptom
+mood swings,Hypothyroidism,has_symptom
+muscle weakness,Arthritis,has_symptom
+muscle weakness,Hyperthyroidism,has_symptom
+painful walking,Arthritis,has_symptom
+painful walking,Osteoarthristis,has_symptom
+fast heart rate,Hyperthyroidism,has_symptom
+fast heart rate,Pneumonia,has_symptom
+continuous sneezing,Allergy,has_symptom
+continuous sneezing,Common Cold,has_symptom
+back pain,Cervical spondylosis,has_symptom
+back pain,Dengue,has_symptom
+shortness of breath,Asthma,has_symptom
+shortness of breath,Pneumonia,has_symptom
+swelling joints,Arthritis,has_symptom
+swelling joints,Osteoarthristis,has_symptom
+family history,Bronchial Asthma,has_symptom
+family history,Hepatitis C,has_symptom
+inflammatory nails,Psoriasis,has_symptom
+skin peeling,Psoriasis,has_symptom
+blood in sputum,Tuberculosis,has_symptom
+intense headache,Migraine,has_symptom
+sensitivity to light and sound,Migraine,has_symptom
+visual disturbances,Migraine,has_symptom
+thickened nails,Psoriasis,has_symptom
+small dents in nails,Psoriasis,has_symptom
+hip joint pain,Osteoarthristis,has_symptom
+knee pain,Osteoarthristis,has_symptom
+altered sensorium,Paralysis (brain hemorrhage),has_symptom
+pain,Psoriasis,has_symptom
+silver like dusting,Psoriasis,has_symptom
+weakness of one body side,Paralysis (brain hemorrhage),has_symptom
+internal itching,Peptic ulcer diseae,has_symptom
+passage of gases,Peptic ulcer diseae,has_symptom
+confusion or changes in mental awareness,Pneumonia,has_symptom
+lower than normal body temperature,Pneumonia,has_symptom
+rusty sputum,Pneumonia,has_symptom
+sweating and shaking chills,Pneumonia,has_symptom
+red patches of skin,Psoriasis,has_symptom
+vomiting or diarrhea,Pneumonia,has_symptom
+belly pain,Typhoid,has_symptom
+muscle aches,Influenza (Flu),has_symptom
+toxic look (typhos),Typhoid,has_symptom
+anxious,Depression,has_symptom
+blood pressure,Cholera,has_symptom
+muscle cramps,Cholera,has_symptom
+rapid heart rate,Cholera,has_symptom
+sensitivity to light,Meningitis,has_symptom
+chest tightness,Asthma,has_symptom
+wheezing,Asthma,has_symptom
+itchy rash,Chickenpox,has_symptom
+appetite and/or weight changes,Depression,has_symptom
+bladder discomfort,Urinary tract infection,has_symptom
+decreased energy or fatigue,Depression,has_symptom
+difficulty concentrating,Depression,has_symptom
+feelings of hopelessness,Depression,has_symptom
+insomnia or oversleeping,Depression,has_symptom
+loss of interest in hobbies and activities,Depression,has_symptom
+"or ""empty"" mood",Depression,has_symptom
+persistent sad,Depression,has_symptom
+rash,Dengue Fever,has_symptom
+joint and muscle pain,Dengue Fever,has_symptom
+persistent cough,Tuberculosis (TB),has_symptom
+night sweats,Tuberculosis (TB),has_symptom
+continuous feel of urine,Urinary tract infection,has_symptom
+foul smell of urine,Urinary tract infection,has_symptom
+bruising,Varicose veins,has_symptom
+cramps,Varicose veins,has_symptom
+prominent veins on calf,Varicose veins,has_symptom
+swollen blood vessels,Varicose veins,has_symptom
+swollen legs,Varicose veins,has_symptom
+headaches,Influenza (Flu),has_symptom
+red sore around nose,Impetigo,has_symptom
+muscle or body aches,Influenza (Flu),has_symptom
+runny or stuffy nose,Influenza (Flu),has_symptom
+aches and pains,COVID-19,has_symptom
+difficulty breathing,COVID-19,has_symptom
+dry cough,COVID-19,has_symptom
+loss of taste or smell,COVID-19,has_symptom
+yelcrust ooze,Impetigo,has_symptom
+jaundice,Hepatitis B,has_symptom
+blister,Impetigo,has_symptom
+movement stiffness,Arthritis,has_symptom
+irregular sugar level,Diabetes,has_symptom
+throat irritation,Common Cold,has_symptom
+sneezing,Common Cold,has_symptom
+slight body aches,Common Cold,has_symptom
+sinus pressure,Common Cold,has_symptom
+redness of eyes,Common Cold,has_symptom
+loss of smell,Common Cold,has_symptom
+generally feeling unwell,Common Cold,has_symptom
+congestion,Common Cold,has_symptom
+weakness in limbs,Cervical spondylosis,has_symptom
+mucoid sputum,Bronchial Asthma,has_symptom
+swelling,Arthritis,has_symptom
+stiffness,Arthritis,has_symptom
+redness,Arthritis,has_symptom
+decreased range of motion,Arthritis,has_symptom
+weight gain,Hypothyroidism,has_symptom
+watering from eyes,Allergy,has_symptom
+shivering,Allergy,has_symptom
+swelling of stomach,Alcoholic hepatitis,has_symptom
+history of alcohol consumption,Alcoholic hepatitis,has_symptom
+fluid overload,Alcoholic hepatitis,has_symptom
+distention of abdomen,Alcoholic hepatitis,has_symptom
+scurring,Acne,has_symptom
+pus filled pimples,Acne,has_symptom
+blackheads,Acne,has_symptom
+patches in throat,AIDS,has_symptom
+muscle wasting,AIDS,has_symptom
+extra marital contacts,AIDS,has_symptom
+unsteadiness,(vertigo) Paroymsal  Positional Vertigo,has_symptom
+spinning movements,(vertigo) Paroymsal  Positional Vertigo,has_symptom
+polyuria,Diabetes,has_symptom
+bloody stool,Dimorphic hemmorhoids(piles),has_symptom
+irritation in anus,Dimorphic hemmorhoids(piles),has_symptom
+pain during bowel movements,Dimorphic hemmorhoids(piles),has_symptom
+swollen extremeties,Hypothyroidism,has_symptom
+puffy face and eyes,Hypothyroidism,has_symptom
+hair loss,Hypothyroidism,has_symptom
+enlarged thyroid,Hypothyroidism,has_symptom
+cold intolerance,Hypothyroidism,has_symptom
+cold hands and feets,Hypothyroidism,has_symptom
+brittle nails,Hypothyroidism,has_symptom
+slurred speech,Hypoglycemia,has_symptom
+palpitations,Hypoglycemia,has_symptom
+drying and tingling lips,Hypoglycemia,has_symptom
+anxiety,Hypoglycemia,has_symptom
+rapid heartbeat,Hyperthyroidism,has_symptom
+lack of concentration,Hypertension,has_symptom
+stomach bleeding,Hepatitis E,has_symptom
+coma,Hepatitis E,has_symptom
+liver failure,Hepatitis E,has_symptom
+yelurine,Hepatitis B,has_symptom
+receiving unsterile injections,Hepatitis B,has_symptom
+receiving blood transfusion,Hepatitis B,has_symptom
+watery diarrhea,Gastroenteritis,has_symptom
+sunken eyes,Gastroenteritis,has_symptom
+stomach cramps,Gastroenteritis,has_symptom
+occasional muscle aches or headache,Gastroenteritis,has_symptom
+abdominal cramps and pain,Gastroenteritis,has_symptom
+ulcers on tongue,GERD,has_symptom
+nodal skin eruptions,Fungal infection,has_symptom
+dischromic  patches,Fungal infection,has_symptom
+spotting  urination,Drug Reaction,has_symptom
+pain in anal region,Dimorphic hemmorhoids(piles),has_symptom
+thoughts of death or suicide,Depression,has_symptom

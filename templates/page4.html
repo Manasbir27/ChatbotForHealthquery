@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Patient Registration - Review & Submit</title>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+   <style>
+       :root {
+           --primary-color: #4a90e2;
+           --secondary-color: #f5f5f5;
+           --text-color: #333;
+           --border-color: #ddd;
+           --success-color: #28a745;
+           --error-color: #dc3545;
+       }
+
+       body {
+           font-family: 'Segoe UI', sans-serif;
+           line-height: 1.6;
+           color: var(--text-color);
+           background: #f0f2f5;
+           margin: 0;
+           padding: 0;
+       }
+
+       .container {
+           max-width: 800px;
+           margin: 2rem auto;
+           padding: 0 1rem;
+       }
+
+       .progress-bar {
+           display: flex;
+           justify-content: space-between;
+           margin-bottom: 2rem;
+           padding: 1rem;
+           background: white;
+           border-radius: 8px;
+           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+       }
+
+       .step {
+           position: relative;
+           flex: 1;
+           text-align: center;
+           color: var(--border-color);
+       }
+
+       .step.active {
+           color: var(--primary-color);
+           font-weight: bold;
+       }
+
+       .section {
+           background: white;
+           border-radius: 8px;
+           padding: 2rem;
+           margin-bottom: 2rem;
+           box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+       }
+
+       h1 {
+           text-align: center;
+           color: var(--primary-color);
+           margin-bottom: 2rem;
+       }
+
+       .review-section {
+           position: relative;
+       }
+
+       .edit-btn {
+           position: absolute;
+           top: 1rem;
+           right: 1rem;
+           background: var(--primary-color);
+           color: white;
+           border: none;
+           border-radius: 4px;
+           padding: 0.5rem 1rem;
+           cursor: pointer;
+       }
+
+       .info-group {
+           margin-bottom: 1.5rem;
+       }
+
+       .info-label {
+           font-weight: bold;
+           margin-bottom: 0.25rem;
+       }
+
+       .info-value {
+           color: #666;
+       }
+
+       .confirmation-section {
+           margin-top: 2rem;
+       }
+
+       .checkbox-group {
+           margin: 1rem 0;
+       }
+
+       .checkbox-group label {
+           display: flex;
+           align-items: center;
+           gap: 0.5rem;
+           cursor: pointer;
+       }
+
+       .button-group {
+           display: flex;
+           gap: 1rem;
+           margin-top: 2rem;
+       }
+
+       .btn {
+           padding: 1rem 2rem;
+           border: none;
+           border-radius: 4px;
+           font-size: 1.1rem;
+           cursor: pointer;
+           transition: all 0.3s ease;
+       }
+
+       .btn-back {
+           background: var(--secondary-color);
+       }
+
+       .btn-print {
+           background: var(--primary-color);
+           color: white;
+       }
+
+       .btn-submit {
+           background: var(--success-color);
+           color: white;
+       }
+
+       .btn:disabled {
+           opacity: 0.7;
+           cursor: not-allowed;
+       }
+
+       .spinner {
+           display: none;
+           width: 20px;
+           height: 20px;
+           border: 2px solid #f3f3f3;
+           border-top: 2px solid var(--primary-color);
+           border-radius: 50%;
+           animation: spin 1s linear infinite;
+           margin-right: 10px;
+       }
+
+       @keyframes spin {
+           0% { transform: rotate(0deg); }
+           100% { transform: rotate(360deg); }
+       }
+   </style>
+</head>
+<body>
+   <div class="container">
+       <h1>Review & Submit Registration</h1>
+       
+       <div class="progress-bar">
+           <div class="step">Basic Info</div>
+           <div class="step">Medical History</div>
+           <div class="step">Social History</div>
+           <div class="step active">Review & Submit</div>
+       </div>
+
+       <form id="reviewForm">
+           <div class="section review-section">
+               <h2>Basic Information</h2>
+               <button type="button" class="edit-btn" onclick="editSection(1)">
+                   <i class="fas fa-edit"></i> Edit
+               </button>
+               <div id="basicInfoReview"></div>
+           </div>
+
+           <div class="section review-section">
+               <h2>Medical History</h2>
+               <button type="button" class="edit-btn" onclick="editSection(2)">
+                   <i class="fas fa-edit"></i> Edit
+               </button>
+               <div id="medicalHistoryReview"></div>
+           </div>
+
+           <div class="section review-section">
+               <h2>Social History</h2>
+               <button type="button" class="edit-btn" onclick="editSection(3)">
+                   <i class="fas fa-edit"></i> Edit
+               </button>
+               <div id="socialHistoryReview"></div>
+           </div>
+
+           <div class="section confirmation-section">
+               <h2>Confirmation</h2>
+               
+               <div class="checkbox-group">
+                   <label>
+                       <input type="checkbox" id="confirmAccuracy" required>
+                       I confirm that all the information provided is accurate and complete
+                   </label>
+               </div>
+               
+               <div class="checkbox-group">
+                   <label>
+                       <input type="checkbox" id="confirmConsent" required>
+                       I consent to the processing of my personal and medical information
+                   </label>
+               </div>
+
+               <div class="button-group">
+                   <button type="button" class="btn btn-back" onclick="goBack()">Back</button>
+                   <button type="button" class="btn btn-print" onclick="printForm()">
+                       <i class="fas fa-print"></i> Print Form
+                   </button>
+                   <button type="submit" class="btn btn-submit" id="submitRegistration" disabled>
+                       <span class="spinner"></span>
+                       Submit Registration
+                   </button>
+               </div>
+           </div>
+       </form>
+   </div>
+
+   <script>
+       document.addEventListener('DOMContentLoaded', () => {
+           loadSavedData();
+           setupEventListeners();
+       });
+
+       function loadSavedData() {
+           const basicInfo = JSON.parse(sessionStorage.getItem('basicInfo') || '{}');
+           const medicalHistory = JSON.parse(sessionStorage.getItem('page2Data') || '{}');
+           const socialHistory = JSON.parse(sessionStorage.getItem('page3Data') || '{}');
+
+           displayBasicInfo(basicInfo);
+           displayMedicalHistory(medicalHistory);
+           displaySocialHistory(socialHistory);
+       }
+
+       function displayBasicInfo(data) {
+           const container = document.getElementById('basicInfoReview');
+           container.innerHTML = `
+               <div class="info-group">
+                   <div class="info-label">Name:</div>
+                   <div class="info-value">${data.name || 'Not provided'}</div>
+               </div>
+               <div class="info-group">
+                   <div class="info-label">Date of Birth:</div>
+                   <div class="info-value">${data.dob || 'Not provided'}</div>
+               </div>
+               <div class="info-group">
+                   <div class="info-label">Age:</div>
+                   <div class="info-value">${data.age || 'Not provided'}</div>
+               </div>
+               <div class="info-group">
+                   <div class="info-label">Blood Group:</div>
+                   <div class="info-value">${data.bloodGroup || 'Not provided'}</div>
+               </div>
+               <div class="info-group">
+                   <div class="info-label">Address:</div>
+                   <div class="info-value">${data.address || 'Not provided'}</div>
+               </div>
+               <div class="info-group">
+                   <div class="info-label">Phone:</div>
+                   <div class="info-value">${data.phone || 'Not provided'}</div>
+               </div>
+               <div class="info-group">
+                   <div class="info-label">Email:</div>
+                   <div class="info-value">${data.email || 'Not provided'}</div>
+               </div>
+           `;
+       }
+
+       function displayMedicalHistory(data) {
+           let html = '<h3>Medical Conditions</h3>';
+           
+           if (data.conditions) {
+               Object.entries(data.conditions).forEach(([condition, details]) => {
+                   if (details.value === 'yes') {
+                       html += `
+                           <div class="info-group">
+                               <div class="info-label">${condition}:</div>
+                               <div class="info-value">${details.details}</div>
+                           </div>
+                       `;
+                   }
+               });
+           }
+
+           if (data.medications?.length) {
+               html += '<h3>Current Medications</h3>';
+               data.medications.forEach(med => {
+                   html += `
+                       <div class="info-group">
+                           <div class="info-value">
+                               ${med.name} - ${med.dosage} (${med.frequency})
+                           </div>
+                       </div>
+                   `;
+               });
+           }
+
+           document.getElementById('medicalHistoryReview').innerHTML = html;
+       }
+
+       function displaySocialHistory(data) {
+           let html = '<h3>Lifestyle Information</h3>';
+           
+           if (data.smoking) {
+               html += `
+                   <div class="info-group">
+                       <div class="info-label">Smoking Status:</div>
+                       <div class="info-value">${data.smoking.status}</div>
+                   </div>
+               `;
+               
+               if (data.smoking.details) {
+                   html += `
+                       <div class="info-group">
+                           <div class="info-label">Details:</div>
+                           <div class="info-value">
+                               Type: ${data.smoking.details.type}<br>
+                               Frequency: ${data.smoking.details.frequency} per day<br>
+                               Duration: ${data.smoking.details.duration} years
+                           </div>
+                       </div>
+                   `;
+               }
+           }
+
+           document.getElementById('socialHistoryReview').innerHTML = html;
+       }
+
+       function setupEventListeners() {
+           const confirmBoxes = document.querySelectorAll('input[type="checkbox"]');
+           const submitBtn = document.getElementById('submitRegistration');
+
+           confirmBoxes.forEach(box => {
+               box.addEventListener('change', () => {
+                   submitBtn.disabled = !Array.from(confirmBoxes).every(box => box.checked);
+               });
+           });
+
+           document.getElementById('reviewForm').addEventListener('submit', async (e) => {
+               e.preventDefault();
+               await submitForm();
+           });
+       }
+
+       async function submitForm() {
+           const spinner = document.querySelector('.spinner');
+           const submitBtn = document.getElementById('submitRegistration');
+           
+           spinner.style.display = 'inline-block';
+           submitBtn.disabled = true;
+
+           try {
+               const formData = {
+                   basicInfo: JSON.parse(sessionStorage.getItem('basicInfo') || '{}'),
+                   medicalHistory: JSON.parse(sessionStorage.getItem('page2Data') || '{}'),
+                   socialHistory: JSON.parse(sessionStorage.getItem('page3Data') || '{}')
+               };
+
+               const response = await fetch('/submit_form', {
+                   method: 'POST',
+                   headers: {
+                       'Content-Type': 'application/json'
+                   },
+                   body: JSON.stringify(formData)
+               });
+
+               const result = await response.json();
+               
+               if (result.success) {
+                   window.location.href = '/page5';
+               } else {
+                   throw new Error(result.error || 'Submission failed');
+               }
+           } catch (error) {
+               alert('Error submitting form: ' + error.message);
+               submitBtn.disabled = false;
+           } finally {
+               spinner.style.display = 'none';
+           }
+       }
+
+       function editSection(pageNumber) {
+           window.location.href = `/page${pageNumber}`;
+       }
+
+       function goBack() {
+           window.location.href = '/page3';
+       }
+
+       function printForm() {
+           window.print();
+       }
+   </script>
+</body>
+</html>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Registration - Social History</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5f5f5;
+            --text-color: #333;
+            --border-color: #ddd;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .step {
+            position: relative;
+            flex: 1;
+            text-align: center;
+            color: var(--border-color);
+        }
+
+        .step.active {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--border-color);
+            top: 50%;
+            left: 50%;
+            z-index: -1;
+        }
+
+        .step.active::after {
+            background: var(--primary-color);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .required::after {
+            content: ' *';
+            color: var(--error-color);
+        }
+
+        .input-with-record {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .record-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .record-btn:hover {
+            background-color: #357abd;
+            transform: translateY(-1px);
+        }
+
+        .record-btn.recording {
+            background-color: var(--error-color);
+            animation: pulse 1.5s infinite;
+        }
+
+        .next-btn {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 2rem;
+            transition: all 0.3s;
+        }
+
+        .next-btn:hover {
+            background-color: #218838;
+            transform: translateY(-1px);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 1rem;
+            }
+            
+            .section {
+                padding: 1rem;
+            }
+
+            .progress-bar {
+                font-size: 0.9rem;
+            }
+        }
+
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .social-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .lifestyle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .lifestyle-item {
+            padding: 1rem;
+            background: var(--secondary-color);
+            border-radius: 4px;
+        }
+
+        .frequency-select {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .frequency-option {
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .frequency-option.selected {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .family-history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .family-history-table th,
+        .family-history-table td {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .family-history-table th {
+            background: var(--secondary-color);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .occupation-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .toggle-input {
+            display: none;
+        }
+
+        .toggle-label {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .toggle-input:checked + .toggle-label {
+            background: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Registration System</h1>
+        <div class="progress-bar">
+            <div class="step">Basic Info</div>
+            <div class="step">Medical History</div>
+            <div class="step active">Social History</div>
+            <div class="step">Review & Submit</div>
+        </div>
+
+        <form id="page3Form">
+            <!-- Lifestyle Section -->
+            <div class="section">
+                <h2>Lifestyle Information</h2>
+
+                <div class="social-section">
+                    <h3>Smoking History</h3>
+                    <div class="lifestyle-grid">
+                        <div class="form-group">
+                            <label>Do you smoke?</label>
+                            <div class="radio-group">
+                                <input type="radio" name="smoking" value="never" id="smoke-never">
+                                <label for="smoke-never">Never</label>
+                                <input type="radio" name="smoking" value="former" id="smoke-former">
+                                <label for="smoke-former">Former</label>
+                                <input type="radio" name="smoking" value="current" id="smoke-current">
+                                <label for="smoke-current">Current</label>
+                            </div>
+                        </div>
+                        <div id="smoking-details" class="hidden-field">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <select id="smoking-type">
+                                    <option value="cigarettes">Cigarettes</option>
+                                    <option value="cigars">Cigars</option>
+                                    <option value="pipe">Pipe</option>
+                                    <option value="vape">Vape/E-cigarettes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Frequency</label>
+                                <input type="number" id="smoking-frequency" placeholder="Per day">
+                            </div>
+                            <div class="form-group">
+                                <label>Duration</label>
+                                <input type="number" id="smoking-duration" placeholder="Years">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-section">
+                    <h3>Alcohol Consumption</h3>
+                    <div class="lifestyle-grid">
+                        <div class="form-group">
+                            <label>Do you drink alcohol?</label>
+                            <div class="frequency-select">
+                                <div class="frequency-option" data-value="never">Never</div>
+                                <div class="frequency-option" data-value="occasional">Occasional</div>
+                                <div class="frequency-option" data-value="regular">Regular</div>
+                                <div class="frequency-option" data-value="heavy">Heavy</div>
+                            </div>
+                        </div>
+                        <div id="alcohol-details" class="hidden-field">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <select id="alcohol-type" multiple>
+                                    <option value="beer">Beer</option>
+                                    <option value="wine">Wine</option>
+                                    <option value="spirits">Spirits</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Frequency (drinks per week)</label>
+                                <input type="number" id="alcohol-frequency">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-section">
+                    <h3>Physical Activity</h3>
+                    <div class="lifestyle-grid">
+                        <div class="form-group">
+                            <label>Exercise Frequency</label>
+                            <div class="frequency-select">
+                                <div class="frequency-option" data-value="none">None</div>
+                                <div class="frequency-option" data-value="occasional">1-2 times/week</div>
+                                <div class="frequency-option" data-value="regular">3-4 times/week</div>
+                                <div class="frequency-option" data-value="active">5+ times/week</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Type of Activities</label>
+                            <input type="text" id="exercise-types" placeholder="e.g., walking, swimming, yoga">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Occupation Section -->
+            <div class="section">
+                <h2>Occupation & Lifestyle</h2>
+                <div class="occupation-details">
+                    <div class="form-group">
+                        <label>Employment Status</label>
+                        <select id="employment-status" required>
+                            <option value="">Select status</option>
+                            <option value="employed">Employed</option>
+                            <option value="self-employed">Self-employed</option>
+                            <option value="unemployed">Unemployed</option>
+                            <option value="retired">Retired</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Occupation</label>
+                        <input type="text" id="occupation" placeholder="Current or most recent">
+                    </div>
+                    <div class="form-group">
+                        <label>Work Schedule</label>
+                        <select id="work-schedule">
+                            <option value="day">Day shift</option>
+                            <option value="night">Night shift</option>
+                            <option value="rotating">Rotating shifts</option>
+                            <option value="flexible">Flexible hours</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Family History Section -->
+            <div class="section">
+                <h2>Family History</h2>
+                <table class="family-history-table">
+                    <thead>
+                        <tr>
+                            <th>Condition</th>
+                            <th>Relationship</th>
+                            <th>Age at Diagnosis</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="family-history-tbody">
+                        <!-- Rows will be added dynamically -->
+                    </tbody>
+                </table>
+                <button type="button" class="add-btn" onclick="addFamilyHistoryRow()">
+                    <i class="fas fa-plus"></i> Add Condition
+                </button>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <button type="button" class="next-btn back-btn" onclick="goBack()">Back</button>
+                <button type="submit" class="next-btn">
+                    <span class="spinner"></span>
+                    Next: Review & Submit
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        class SocialHistoryForm {
+            constructor() {
+                this.form = document.getElementById('page3Form');
+                this.spinner = document.querySelector('.spinner');
+                this.setupEventListeners();
+                this.loadSavedData();
+                this.initializeFamilyHistory();
+            }
+        
+            setupEventListeners() {
+                // Smoking section
+                document.querySelectorAll('input[name="smoking"]').forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        const details = document.getElementById('smoking-details');
+                        details.classList.toggle('active', e.target.value === 'current' || e.target.value === 'former');
+                    });
+                });
+        
+                // Alcohol section
+                document.querySelectorAll('.frequency-option').forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        const parent = e.target.closest('.frequency-select');
+                        parent.querySelectorAll('.frequency-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        e.target.classList.add('selected');
+                        
+                        const details = document.getElementById('alcohol-details');
+                        details.classList.toggle('active', e.target.dataset.value !== 'never');
+                    });
+                });
+        
+                // Form submission
+                this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+            }
+        
+            initializeFamilyHistory() {
+                const conditions = [
+                    'Heart Disease', 'Diabetes', 'Cancer', 'High Blood Pressure', 
+                    'Mental Health', 'Autoimmune Disease'
+                ];
+                
+                conditions.forEach(condition => {
+                    this.addFamilyHistoryRow(condition);
+                });
+            }
+        
+            addFamilyHistoryRow(condition = '') {
+                const tbody = document.getElementById('family-history-tbody');
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <input type="text" class="condition-input" value="${condition}" 
+                            ${condition ? 'readonly' : 'placeholder="Enter condition"'}>
+                    </td>
+                    <td>
+                        <select class="relationship-select">
+                            <option value="">Select</option>
+                            <option value="parent">Parent</option>
+                            <option value="sibling">Sibling</option>
+                            <option value="grandparent">Grandparent</option>
+                            <option value="child">Child</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" class="age-input" min="0" max="120">
+                    </td>
+                    <td>
+                        <textarea class="details-input" placeholder="Additional details"></textarea>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            }
+        
+            collectFormData() {
+                const formData = {
+                    smoking: {
+                        status: document.querySelector('input[name="smoking"]:checked')?.value || '',
+                        details: this.getSmokerDetails()
+                    },
+                    alcohol: {
+                        frequency: document.querySelector('.frequency-option.selected')?.dataset.value || '',
+                        details: this.getAlcoholDetails()
+                    },
+                    exercise: {
+                        frequency: document.querySelector('.frequency-select .frequency-option.selected')?.dataset.value || '',
+                        types: document.getElementById('exercise-types').value
+                    },
+                    occupation: {
+                        status: document.getElementById('employment-status').value,
+                        occupation: document.getElementById('occupation').value,
+                        schedule: document.getElementById('work-schedule').value
+                    },
+                    familyHistory: this.getFamilyHistory()
+                };
+                return formData;
+            }
+        
+            getSmokerDetails() {
+                if (!document.getElementById('smoking-details').classList.contains('active')) {
+                    return null;
+                }
+                return {
+                    type: document.getElementById('smoking-type').value,
+                    frequency: document.getElementById('smoking-frequency').value,
+                    duration: document.getElementById('smoking-duration').value
+                };
+            }
+        
+            getAlcoholDetails() {
+                if (!document.getElementById('alcohol-details').classList.contains('active')) {
+                    return null;
+                }
+                return {
+                    type: Array.from(document.getElementById('alcohol-type').selectedOptions).map(opt => opt.value),
+                    frequency: document.getElementById('alcohol-frequency').value
+                };
+            }
+        
+            getFamilyHistory() {
+                const history = [];
+                document.querySelectorAll('#family-history-tbody tr').forEach(row => {
+                    const condition = row.querySelector('.condition-input').value;
+                    const relationship = row.querySelector('.relationship-select').value;
+                    if (condition && relationship) {
+                        history.push({
+                            condition: condition,
+                            relationship: relationship,
+                            ageAtDiagnosis: row.querySelector('.age-input').value,
+                            details: row.querySelector('.details-input').value
+                        });
+                    }
+                });
+                return history;
+            }
+        
+            validateForm() {
+                let isValid = true;
+                const errorMessages = [];
+        
+                // Check employment status
+                if (!document.getElementById('employment-status').value) {
+                    isValid = false;
+                    errorMessages.push('Please select employment status');
+                }
+        
+                // Check smoking details if current/former smoker
+                const smokingStatus = document.querySelector('input[name="smoking"]:checked')?.value;
+                if (['current', 'former'].includes(smokingStatus)) {
+                    const details = this.getSmokerDetails();
+                    if (!details.frequency || !details.duration) {
+                        isValid = false;
+                        errorMessages.push('Please complete smoking history details');
+                    }
+                }
+        
+                // Check alcohol details if drinker
+                const alcoholFreq = document.querySelector('.frequency-option.selected')?.dataset.value;
+                if (alcoholFreq && alcoholFreq !== 'never') {
+                    const details = this.getAlcoholDetails();
+                    if (!details.type.length || !details.frequency) {
+                        isValid = false;
+                        errorMessages.push('Please complete alcohol consumption details');
+                    }
+                }
+        
+                if (!isValid) {
+                    alert(errorMessages.join('\n'));
+                }
+                return isValid;
+            }
+        
+            loadSavedData() {
+                const savedData = sessionStorage.getItem('page3Data');
+                if (!savedData) return;
+        
+                const data = JSON.parse(savedData);
+        
+                // Load smoking data
+                if (data.smoking.status) {
+                    document.querySelector(`input[name="smoking"][value="${data.smoking.status}"]`).checked = true;
+                    if (data.smoking.details) {
+                        document.getElementById('smoking-details').classList.add('active');
+                        document.getElementById('smoking-type').value = data.smoking.details.type;
+                        document.getElementById('smoking-frequency').value = data.smoking.details.frequency;
+                        document.getElementById('smoking-duration').value = data.smoking.details.duration;
+                    }
+                }
+        
+                // Load alcohol data
+                if (data.alcohol.frequency) {
+                    const option = document.querySelector(`.frequency-option[data-value="${data.alcohol.frequency}"]`);
+                    option?.classList.add('selected');
+                    if (data.alcohol.details) {
+                        document.getElementById('alcohol-details').classList.add('active');
+                        const select = document.getElementById('alcohol-type');
+                        data.alcohol.details.type.forEach(type => {
+                            select.querySelector(`option[value="${type}"]`).selected = true;
+                        });
+                        document.getElementById('alcohol-frequency').value = data.alcohol.details.frequency;
+                    }
+                }
+        
+                // Load exercise data
+                if (data.exercise.frequency) {
+                    const option = document.querySelector(`.frequency-option[data-value="${data.exercise.frequency}"]`);
+                    option?.classList.add('selected');
+                    document.getElementById('exercise-types').value = data.exercise.types;
+                }
+        
+                // Load occupation data
+                document.getElementById('employment-status').value = data.occupation.status;
+                document.getElementById('occupation').value = data.occupation.occupation;
+                document.getElementById('work-schedule').value = data.occupation.schedule;
+        
+                // Load family history
+                if (data.familyHistory.length) {
+                    document.getElementById('family-history-tbody').innerHTML = '';
+                    data.familyHistory.forEach(history => {
+                        this.addFamilyHistoryRow(history.condition);
+                        const lastRow = document.querySelector('#family-history-tbody tr:last-child');
+                        lastRow.querySelector('.relationship-select').value = history.relationship;
+                        lastRow.querySelector('.age-input').value = history.ageAtDiagnosis;
+                        lastRow.querySelector('.details-input').value = history.details;
+                    });
+                }
+            }
+        
+            async handleSubmit(e) {
+                e.preventDefault();
+                
+                if (!this.validateForm()) return;
+        
+                this.spinner.style.display = 'inline-block';
+                try {
+                    const formData = this.collectFormData();
+                    sessionStorage.setItem('page3Data', JSON.stringify(formData));
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    window.location.href = '/page4';
+                } catch (error) {
+                    console.error('Error saving form data:', error);
+                    alert('Error saving form data. Please try again.');
+                } finally {
+                    this.spinner.style.display = 'none';
+                }
+            }
+        }
+        
+        // Initialize form handler
+        document.addEventListener('DOMContentLoaded', () => {
+            const formHandler = new SocialHistoryForm();
+            
+            // Global functions
+            window.addFamilyHistoryRow = () => formHandler.addFamilyHistoryRow();
+            window.goBack = () => {
+                window.location.href = '/page2';
+            };
+        });
+        </script>
+</body>
+</html>

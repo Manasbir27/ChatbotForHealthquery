@@ -1,0 +1,189 @@
+Symptom,Number_of_Diseases,Associated_Diseases
+fatigue,20,"Bronchial Asthma, COVID-19, Chicken pox, Common Cold, Dengue, Diabetes , Hepatitis B, Hepatitis C, Hepatitis D, Hepatitis E, Hyperthyroidism, Hypoglycemia, Hypothyroidism, Influenza (Flu), Jaundice, Pneumonia, Tuberculosis, Tuberculosis (TB), Typhoid, Varicose veins"
+fever,20,"AIDS, Bronchial Asthma, COVID-19, Chicken pox, Chickenpox, Common Cold, Dengue, Dengue Fever, Gastroenteritis, Hepatitis E, Impetigo, Influenza (Flu), Jaundice, Malaria, Meningitis, Pneumonia, Tuberculosis, Tuberculosis (TB), Typhoid, hepatitis A"
+vomiting,19,"(vertigo) Paroymsal  Positional Vertigo, Alcoholic hepatitis, COVID-19, Chronic cholestasis, Dengue, GERD, Gastroenteritis, Heart attack, Hepatitis D, Hepatitis E, Hypoglycemia, Jaundice, Malaria, Migraine, Paralysis (brain hemorrhage), Peptic ulcer diseae, Tuberculosis, Typhoid, hepatitis A"
+nausea,15,"(vertigo) Paroymsal  Positional Vertigo, COVID-19, Chronic cholestasis, Dengue, Gastroenteritis, Hepatitis C, Hepatitis D, Hepatitis E, Hypoglycemia, Malaria, Meningitis, Migraine, Pneumonia, Typhoid, hepatitis A"
+headache,13,"(vertigo) Paroymsal  Positional Vertigo, COVID-19, Chicken pox, Common Cold, Dengue, Dengue Fever, Hypertension , Hypoglycemia, Malaria, Meningitis, Migraine, Paralysis (brain hemorrhage), Typhoid"
+loss of appetite,11,"Chicken pox, Chickenpox, Chronic cholestasis, Dengue, Hepatitis B, Hepatitis C, Hepatitis D, Hepatitis E, Peptic ulcer diseae, Tuberculosis, hepatitis A"
+abdominal pain,9,"Alcoholic hepatitis, Chronic cholestasis, Hepatitis B, Hepatitis D, Hepatitis E, Jaundice, Peptic ulcer diseae, Typhoid, hepatitis A"
+cough,8,"Asthma, Bronchial Asthma, COVID-19, Common Cold, GERD, Influenza (Flu), Pneumonia, Tuberculosis"
+chills,8,"Allergy, Common Cold, Dengue, Influenza (Flu), Malaria, Pneumonia, Tuberculosis, Typhoid"
+yellowish skin,8,"Alcoholic hepatitis, Chronic cholestasis, Hepatitis B, Hepatitis C, Hepatitis D, Hepatitis E, Jaundice, hepatitis A"
+itching,7,"Chicken pox, Chronic cholestasis, Drug Reaction, Fungal infection, Hepatitis B, Jaundice, Psoriasis"
+joint pain,7,"Arthritis, Dengue, Hepatitis D, Hepatitis E, Osteoarthristis, Psoriasis, hepatitis A"
+yellowing of eyes,7,"Chronic cholestasis, Hepatitis B, Hepatitis C, Hepatitis D, Hepatitis E, Tuberculosis, hepatitis A"
+skin rash,7,"Acne, Chicken pox, Dengue, Drug Reaction, Fungal infection, Impetigo, Psoriasis"
+chest pain,6,"Common Cold, GERD, Heart attack, Hypertension , Pneumonia, Tuberculosis"
+sweating,6,"Heart attack, Hyperthyroidism, Hypoglycemia, Malaria, Pneumonia, Tuberculosis"
+malaise,6,"Chicken pox, Common Cold, Dengue, Hepatitis B, Pneumonia, Tuberculosis"
+irritability,5,"Depression, Hyperthyroidism, Hypoglycemia, Hypothyroidism, Migraine"
+dark urine,5,"Hepatitis B, Hepatitis D, Hepatitis E, Jaundice, hepatitis A"
+diarrhoea,5,"Gastroenteritis, Hyperthyroidism, Malaria, Typhoid, hepatitis A"
+weight loss,5,"Diabetes , Hyperthyroidism, Jaundice, Tuberculosis, Tuberculosis (TB)"
+muscle pain,4,"Common Cold, Dengue, Malaria, hepatitis A"
+breathlessness,4,"Bronchial Asthma, Heart attack, Pneumonia, Tuberculosis"
+lethargy,4,"Chicken pox, Diabetes , Hepatitis B, Hypothyroidism"
+excessive hunger,4,"Diabetes , Hyperthyroidism, Hypoglycemia, Migraine"
+sore throat,3,"COVID-19, Common Cold, Influenza (Flu)"
+loss of balance,3,"(vertigo) Paroymsal  Positional Vertigo, Cervical spondylosis, Hypertension "
+phlegm,3,"Common Cold, Pneumonia, Tuberculosis"
+stiff neck,3,"Arthritis, Meningitis, Migraine"
+dizziness,3,"Cervical spondylosis, Hypertension , Hypothyroidism"
+blurred and distorted vision,3,"Diabetes , Hypoglycemia, Migraine"
+constipation,3,"Dimorphic hemmorhoids(piles), Hypothyroidism, Typhoid"
+diarrhea,3,"COVID-19, Cholera, Gastroenteritis"
+swelled lymph nodes,3,"Chicken pox, Common Cold, Tuberculosis"
+red spots over body,2,"Chicken pox, Dengue"
+stomach pain,2,"Drug Reaction, GERD"
+dehydration,2,"Cholera, Gastroenteritis"
+restlessness,2,"Diabetes , Hyperthyroidism"
+burning micturition,2,"Drug Reaction, Urinary tract infection"
+obesity,2,"Diabetes , Varicose veins"
+increased appetite,2,"Diabetes , Hyperthyroidism"
+runny nose,2,"COVID-19, Common Cold"
+pain behind the eyes,2,"Dengue, Dengue Fever"
+neck pain,2,"Cervical spondylosis, Osteoarthristis"
+tiredness,2,"COVID-19, Chickenpox"
+abnormal menstruation,2,"Hyperthyroidism, Hypothyroidism"
+indigestion,2,"Migraine, Peptic ulcer diseae"
+dry skin,2,"Hypothyroidism, Psoriasis"
+depression,2,"Hypothyroidism, Migraine"
+acidity,2,"GERD, Migraine"
+mood swings,2,"Hyperthyroidism, Hypothyroidism"
+muscle weakness,2,"Arthritis, Hyperthyroidism"
+painful walking,2,"Arthritis, Osteoarthristis"
+fast heart rate,2,"Hyperthyroidism, Pneumonia"
+continuous sneezing,2,"Allergy, Common Cold"
+back pain,2,"Cervical spondylosis, Dengue"
+shortness of breath,2,"Asthma, Pneumonia"
+swelling joints,2,"Arthritis, Osteoarthristis"
+family history,2,"Bronchial Asthma, Hepatitis C"
+inflammatory nails,1,Psoriasis
+skin peeling,1,Psoriasis
+blood in sputum,1,Tuberculosis
+intense headache,1,Migraine
+sensitivity to light and sound,1,Migraine
+visual disturbances,1,Migraine
+thickened nails,1,Psoriasis
+small dents in nails,1,Psoriasis
+hip joint pain,1,Osteoarthristis
+knee pain,1,Osteoarthristis
+altered sensorium,1,Paralysis (brain hemorrhage)
+pain,1,Psoriasis
+silver like dusting,1,Psoriasis
+weakness of one body side,1,Paralysis (brain hemorrhage)
+internal itching,1,Peptic ulcer diseae
+passage of gases,1,Peptic ulcer diseae
+confusion or changes in mental awareness,1,Pneumonia
+lower than normal body temperature,1,Pneumonia
+rusty sputum,1,Pneumonia
+sweating and shaking chills,1,Pneumonia
+red patches of skin,1,Psoriasis
+vomiting or diarrhea,1,Pneumonia
+belly pain,1,Typhoid
+muscle aches,1,Influenza (Flu)
+toxic look (typhos),1,Typhoid
+anxious,1,Depression
+blood pressure,1,Cholera
+muscle cramps,1,Cholera
+rapid heart rate,1,Cholera
+sensitivity to light,1,Meningitis
+chest tightness,1,Asthma
+wheezing,1,Asthma
+itchy rash,1,Chickenpox
+appetite and/or weight changes,1,Depression
+bladder discomfort,1,Urinary tract infection
+decreased energy or fatigue,1,Depression
+difficulty concentrating,1,Depression
+feelings of hopelessness,1,Depression
+insomnia or oversleeping,1,Depression
+loss of interest in hobbies and activities,1,Depression
+"or ""empty"" mood",1,Depression
+persistent sad,1,Depression
+rash,1,Dengue Fever
+joint and muscle pain,1,Dengue Fever
+persistent cough,1,Tuberculosis (TB)
+night sweats,1,Tuberculosis (TB)
+continuous feel of urine,1,Urinary tract infection
+foul smell of urine,1,Urinary tract infection
+bruising,1,Varicose veins
+cramps,1,Varicose veins
+prominent veins on calf,1,Varicose veins
+swollen blood vessels,1,Varicose veins
+swollen legs,1,Varicose veins
+headaches,1,Influenza (Flu)
+red sore around nose,1,Impetigo
+muscle or body aches,1,Influenza (Flu)
+runny or stuffy nose,1,Influenza (Flu)
+aches and pains,1,COVID-19
+difficulty breathing,1,COVID-19
+dry cough,1,COVID-19
+loss of taste or smell,1,COVID-19
+yelcrust ooze,1,Impetigo
+jaundice,1,Hepatitis B
+blister,1,Impetigo
+movement stiffness,1,Arthritis
+irregular sugar level,1,Diabetes 
+throat irritation,1,Common Cold
+sneezing,1,Common Cold
+slight body aches,1,Common Cold
+sinus pressure,1,Common Cold
+redness of eyes,1,Common Cold
+loss of smell,1,Common Cold
+generally feeling unwell,1,Common Cold
+congestion,1,Common Cold
+weakness in limbs,1,Cervical spondylosis
+mucoid sputum,1,Bronchial Asthma
+swelling,1,Arthritis
+stiffness,1,Arthritis
+redness,1,Arthritis
+decreased range of motion,1,Arthritis
+weight gain,1,Hypothyroidism
+watering from eyes,1,Allergy
+shivering,1,Allergy
+swelling of stomach,1,Alcoholic hepatitis
+history of alcohol consumption,1,Alcoholic hepatitis
+fluid overload,1,Alcoholic hepatitis
+distention of abdomen,1,Alcoholic hepatitis
+scurring,1,Acne
+pus filled pimples,1,Acne
+blackheads,1,Acne
+patches in throat,1,AIDS
+muscle wasting,1,AIDS
+extra marital contacts,1,AIDS
+unsteadiness,1,(vertigo) Paroymsal  Positional Vertigo
+spinning movements,1,(vertigo) Paroymsal  Positional Vertigo
+polyuria,1,Diabetes 
+bloody stool,1,Dimorphic hemmorhoids(piles)
+irritation in anus,1,Dimorphic hemmorhoids(piles)
+pain during bowel movements,1,Dimorphic hemmorhoids(piles)
+swollen extremeties,1,Hypothyroidism
+puffy face and eyes,1,Hypothyroidism
+hair loss,1,Hypothyroidism
+enlarged thyroid,1,Hypothyroidism
+cold intolerance,1,Hypothyroidism
+cold hands and feets,1,Hypothyroidism
+brittle nails,1,Hypothyroidism
+slurred speech,1,Hypoglycemia
+palpitations,1,Hypoglycemia
+drying and tingling lips,1,Hypoglycemia
+anxiety,1,Hypoglycemia
+rapid heartbeat,1,Hyperthyroidism
+lack of concentration,1,Hypertension 
+stomach bleeding,1,Hepatitis E
+coma,1,Hepatitis E
+liver failure,1,Hepatitis E
+yelurine,1,Hepatitis B
+receiving unsterile injections,1,Hepatitis B
+receiving blood transfusion,1,Hepatitis B
+watery diarrhea,1,Gastroenteritis
+sunken eyes,1,Gastroenteritis
+stomach cramps,1,Gastroenteritis
+occasional muscle aches or headache,1,Gastroenteritis
+abdominal cramps and pain,1,Gastroenteritis
+ulcers on tongue,1,GERD
+nodal skin eruptions,1,Fungal infection
+dischromic  patches,1,Fungal infection
+spotting  urination,1,Drug Reaction
+pain in anal region,1,Dimorphic hemmorhoids(piles)
+thoughts of death or suicide,1,Depression

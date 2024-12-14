@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Medical Assistant</title>
+    <style>
+        :root {
+            --primary-color: #005bab;
+            --secondary-color: #0077cc;
+            --accent-color: #e74c3c;
+            --background-color: #f5f9ff;
+            --text-color: #2c3e50;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border-bottom: 4px solid var(--primary-color);
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            border: 1px solid #e1e8f0;
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            max-width: 80%;
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            color: white;
+            margin-left: auto;
+        }
+
+        .bot-message {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e8f0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .input-container {
+            display: flex;
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e1e8f0;
+        }
+
+        .input-container input {
+            flex-grow: 1;
+            padding: 15px;
+            border: 2px solid #e1e8f0;
+            border-radius: var(--border-radius);
+            margin-right: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .input-container input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(0,91,171,0.1);
+        }
+
+        .input-container button {
+            padding: 15px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .input-container button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .progress-container {
+            margin: 15px 0;
+            padding: 0 10px;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e1e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            display: none;
+            margin-top: 20px;
+            padding: 25px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border: 1px solid #e1e8f0;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .results-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .results-section {
+            margin-bottom: 20px;
+            padding: 25px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border: 1px solid #e1e8f0;
+        }
+
+        .results-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e1e8f0;
+            font-size: 1.4em;
+        }
+
+        .symptoms-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .symptom-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #e3f2fd;
+            border-radius: 15px;
+            font-size: 0.9em;
+            color: var(--primary-color);
+            border: 1px solid rgba(0,91,171,0.2);
+        }
+
+        .disease-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            border: 1px solid #e1e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .disease-name {
+            font-size: 1.2em;
+            color: var(--primary-color);
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .confidence-bar {
+            height: 8px;
+            background: #e1e8f0;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.6s ease-out;
+        }
+
+        .analysis-source {
+            font-size: 0.8em;
+            padding: 4px 8px;
+            background: #e1e8f0;
+            border-radius: 4px;
+            color: #666;
+        }
+
+        .metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .metric {
+            background: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #666;
+            border: 1px solid #e1e8f0;
+        }
+
+        .disease-explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary-color);
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .question-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .question-buttons button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            font-size: 1em;
+            min-width: 120px;
+        }
+
+        .yes-btn {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .no-btn {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .unsure-btn {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .question-buttons button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-top: 20px;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 15px;
+            animation: spin 1s linear infinite;
+        }
+
+        .warning-message {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: var(--border-radius);
+            color: #856404;
+            text-align: center;
+            font-size: 0.95em;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .metrics {
+                flex-direction: column;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AI Medical Assistant</h1>
+            <p>Describe your symptoms in detail, and I'll help analyze them</p>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    Hello! I'm your medical diagnosis assistant. Please describe your symptoms in detail, and I'll help analyze them.
+                </div>
+            </div>
+            <div class="input-container">
+                <input type="text" id="userInput" placeholder="Describe your symptoms..." />
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <p>Analyzing symptoms...</p>
+        </div>
+
+        <div class="question-container" id="questionContainer">
+            <h3>Additional Questions</h3>
+            <div class="progress-container">
+                <div class="progress-text">
+                    <span>Progress</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+            <p id="currentQuestion"></p>
+            <div class="question-buttons">
+                <button class="yes-btn" onclick="answerQuestion('yes')">Yes</button>
+                <button class="no-btn" onclick="answerQuestion('no')">No</button>
+                <button class="unsure-btn" onclick="answerQuestion('unsure')">Unsure</button>
+            </div>
+        </div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="results-section">
+                <h3>Detected Symptoms</h3>
+                <div id="detectedSymptoms" class="symptoms-list"></div>
+            </div>
+
+            <div class="results-section">
+                <h3>Database Analysis Results</h3>
+                <div id="databaseResults"></div>
+            </div>
+
+            <div class="results-section">
+                <h3>AI Analysis Results</h3>
+                <div id="aiResults"></div>
+            </div>
+
+            <div class="warning-message">
+                <strong>Important Notice:</strong> This is not a medical diagnosis. 
+                Please consult a healthcare professional for proper medical evaluation.
+            </div>
+        </div>
+    </div>
+    <script>
+        // Add this at the start of your script section
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get reason from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const reason = urlParams.get('reason');
+            
+            if (reason) {
+                // Set the input field with the reason
+                const input = document.getElementById('userInput');
+                input.value = decodeURIComponent(reason);
+                
+                // Automatically send the message after a short delay
+                setTimeout(() => {
+                    sendMessage();
+                }, 1000);
+            }
+        });
+        </script>
+    <script>
+        let currentQuestionData = null;
+        let totalQuestions = 10; // Set this to your expected number of questions
+        let answeredQuestions = 0;
+
+        function updateProgress() {
+            const percent = Math.round((answeredQuestions / totalQuestions) * 100);
+            document.getElementById('progressPercent').textContent = `${percent}%`;
+            document.getElementById('progressFill').style.width = `${percent}%`;
+        }
+
+        function addMessage(message, isUser = false) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            messageDiv.textContent = message;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showLoading(message = 'Analyzing symptoms...') {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('loading').querySelector('p').textContent = message;
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('resultsContainer').style.display = 'none';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            addMessage(message, true);
+            input.value = '';
+            showLoading();
+
+            try {
+                const response = await fetch('/analyze_symptoms', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message })
+                });
+
+                const data = await response.json();
+                hideLoading();
+
+                if (data.status === 'error') {
+                    addMessage(data.message);
+                    return;
+                }
+
+                const symptomsMessage = 'Detected symptoms:\n' + 
+                    data.detected_symptoms.join('\n');
+                addMessage(symptomsMessage);
+
+                if (data.has_questions) {
+                    // Reset progress when starting new questions
+                    answeredQuestions = 0;
+                    currentQuestionData = data.next_question;
+                    showQuestion(currentQuestionData);
+                } else {
+                    showResults(data);
+                }
+            } catch (error) {
+                hideLoading();
+                console.error('Error:', error);
+                addMessage('Sorry, there was an error processing your request. Please try again.');
+            }
+        }
+
+        function showQuestion(questionData) {
+            const questionContainer = document.getElementById('questionContainer');
+            const questionText = document.getElementById('currentQuestion');
+            
+            if (answeredQuestions === 0) {
+                // Reset progress when starting new set of questions
+                totalQuestions = 10;
+                answeredQuestions = 0;
+            }
+            
+            questionText.textContent = `Do you experience ${questionData.symptom}?`;
+            questionContainer.style.display = 'block';
+            updateProgress();
+        }
+
+        async function answerQuestion(answer) {
+            answeredQuestions++;
+            updateProgress();
+            
+            document.getElementById('questionContainer').style.display = 'none';
+            showLoading('Processing your response...');
+
+            try {
+                const response = await fetch('/answer_question', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ answer })
+                });
+
+                const data = await response.json();
+                hideLoading();
+
+                if (data.status === 'continue') {
+                    currentQuestionData = data.next_question;
+                    showQuestion(currentQuestionData);
+                } else if (data.status === 'complete') {
+                    showResults(data);
+                }
+            } catch (error) {
+                hideLoading();
+                console.error('Error:', error);
+                addMessage('An error occurred during analysis. Please try again.');
+            }
+        }
+
+        function showResults(data) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            const detectedSymptoms = document.getElementById('detectedSymptoms');
+            const databaseResults = document.getElementById('databaseResults');
+            const aiResults = document.getElementById('aiResults');
+
+            // Clear previous results
+            detectedSymptoms.innerHTML = '';
+            databaseResults.innerHTML = '';
+            aiResults.innerHTML = '';
+
+            // Display symptoms
+            data.all_symptoms?.forEach(symptom => {
+                const span = document.createElement('span');
+                span.className = 'symptom-tag';
+                span.textContent = symptom;
+                detectedSymptoms.appendChild(span);
+            });
+
+            // Display simplified database results
+            if (data.csv_results && data.csv_results.length > 0) {
+                data.csv_results.forEach(result => {
+                    const diseaseDiv = document.createElement('div');
+                    diseaseDiv.className = 'disease-item';
+                    diseaseDiv.innerHTML = `
+                        <span class="disease-name">
+                            ${result.disease}
+                            <span class="analysis-source">Database Analysis</span>
+                        </span>
+                    `;
+                    databaseResults.appendChild(diseaseDiv);
+                });
+            } else {
+                databaseResults.innerHTML = '<p>No significant matches found in the database.</p>';
+            }
+
+            // Display detailed AI results
+            if (data.ai_results && data.ai_results.length > 0) {
+                data.ai_results.forEach(result => {
+                    const resultDiv = document.createElement('div');
+                    resultDiv.className = 'disease-item';
+                    resultDiv.innerHTML = `
+                        <span class="disease-name">
+                            ${result.disease}
+                            <span class="analysis-source">AI Analysis</span>
+                        </span>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" style="width: ${result.confidence}%"></div>
+                        </div>
+                        <div class="metrics">
+                            <span class="metric">Confidence: ${result.confidence.toFixed(1)}%</span>
+                        </div>
+                        ${result.explanation ? 
+                            `<div class="disease-explanation">${result.explanation}</div>` : ''}
+                    `;
+                    aiResults.appendChild(resultDiv);
+                });
+            } else {
+                aiResults.innerHTML = '<p>AI analysis not available at the moment.</p>';
+            }
+
+            resultsContainer.style.display = 'block';
+            resultsContainer.scrollIntoView({ behavior: 'smooth' });
+            addMessage('Analysis complete. Please review the detailed results below.');
+
+            // Reset progress tracking
+            answeredQuestions = 0;
+        }
+
+        // Handle Enter key in input
+        document.getElementById('userInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Initialize chat interface
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('userInput');
+            input.focus();
+        });
+    </script>
+    <script>
+        // Initialize with reason from registration if available
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const reason = urlParams.get('reason');
+            
+            if (reason) {
+                const input = document.getElementById('userInput');
+                input.value = reason;
+                // Automatically send the message after a short delay
+                setTimeout(() => {
+                    sendMessage();
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

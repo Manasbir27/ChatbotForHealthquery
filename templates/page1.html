@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Registration - Basic Info</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5f5f5;
+            --text-color: #333;
+            --border-color: #ddd;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .step {
+            position: relative;
+            flex: 1;
+            text-align: center;
+            color: var(--border-color);
+        }
+
+        .step.active {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--border-color);
+            top: 50%;
+            left: 50%;
+            z-index: -1;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input, select {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
+
+        input[readonly] {
+            background-color: var(--secondary-color);
+            cursor: not-allowed;
+        }
+
+        .record-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .record-btn:hover {
+            background-color: #357abd;
+            transform: translateY(-1px);
+        }
+
+        .record-btn.recording {
+            background-color: var(--error-color);
+            animation: pulse 1.5s infinite;
+        }
+
+        .full-record-btn {
+            background: var(--primary-color);
+            color: white;
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+
+        .next-btn {
+            background: var(--success-color);
+            color: white;
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #recordingStatus {
+            display: none;
+            padding: 1rem;
+            margin: 1rem 0;
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            border-radius: 4px;
+        }
+
+        #status {
+            display: none;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Registration System</h1>
+        <div class="progress-bar">
+            <div class="step active">Basic Info</div>
+            <div class="step">Medical History</div>
+            <div class="step">Social History</div>
+            <div class="step">Review & Submit</div>
+        </div>
+
+        <div class="section">
+            <button type="button" class="full-record-btn" id="recordAllBtn">
+                <i class="fas fa-microphone"></i> Record All Information
+            </button>
+
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <div class="input-group">
+                        <input type="text" id="name" required>
+                        <button type="button" class="record-btn" data-field="name">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    <div class="input-group">
+                        <input type="text" id="dob" placeholder="DD MM YYYY" required>
+                        <button type="button" class="record-btn" data-field="dob">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="text" id="age" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Blood Group</label>
+                    <select id="bloodGroup" required>
+                        <option value="">Select Blood Group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Address</label>
+                    <div class="input-group">
+                        <input type="text" id="address" required>
+                        <button type="button" class="record-btn" data-field="address">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <div class="input-group">
+                        <input type="tel" id="phone" required>
+                        <button type="button" class="record-btn" data-field="phone">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <div class="input-group">
+                        <input type="email" id="email" required>
+                        <button type="button" class="record-btn" data-field="email">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Reason for Visit</label>
+                    <div class="input-group">
+                        <input type="text" id="reason" name="reason" required>  <!-- Added name attribute -->
+                        <button type="button" class="record-btn" data-field="reason">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="recordingStatus"></div>
+                <div id="status"></div>
+
+                <button type="submit" class="next-btn">Next: Medical History</button>
+            </form>
+        </div>
+        
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load any existing form data
+            const formData = JSON.parse(localStorage.getItem('formData')) || {};
+            
+            // Set up form submission handler
+            document.querySelector('form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get all form fields including reason
+                const formData = {};
+                const formFields = document.querySelectorAll('input, textarea');
+                formFields.forEach(field => {
+                    formData[field.name] = field.value;
+                });
+                
+                // Specifically get the reason for visit
+                const reasonField = document.querySelector('input[name="reason"]') || 
+                                  document.querySelector('textarea[name="reason"]');
+                if (reasonField) {
+                    formData.reason = reasonField.value;
+                }
+                
+                // Save to localStorage
+                localStorage.setItem('formData', JSON.stringify(formData));
+                
+                // Continue to next page
+                window.location.href = '/page2';
+            });
+        });
+    </script>
+    <script>
+        let mediaRecorder;
+        let audioChunks = [];
+        let timerInterval;
+        let startTime;
+
+        document.getElementById('recordAllBtn').addEventListener('click', startFullRecording);
+        document.querySelectorAll('.record-btn').forEach(btn => {
+            btn.addEventListener('click', () => startFieldRecording(btn));
+        });
+
+        document.getElementById('dob').addEventListener('change', calculateAge);
+        document.getElementById('registrationForm').addEventListener('submit', handleSubmit);
+
+        async function startFullRecording() {
+            const button = document.getElementById('recordAllBtn');
+            if (!button.classList.contains('recording')) {
+                const success = await startRecording();
+                if (success) {
+                    button.classList.add('recording');
+                    button.innerHTML = '<i class="fas fa-stop"></i> Stop Recording';
+                    showRecordingStatus('Recording all information...');
+                }
+            } else {
+                const audioBlob = await stopRecording();
+                button.classList.remove('recording');
+                button.innerHTML = '<i class="fas fa-microphone"></i> Record All Information';
+                hideRecordingStatus();
+                await processAudio(audioBlob, 'full');
+            }
+        }
+
+        async function startFieldRecording(button) {
+            if (!button.classList.contains('recording')) {
+                const success = await startRecording();
+                if (success) {
+                    button.classList.add('recording');
+                    button.querySelector('i').classList.replace('fa-microphone', 'fa-stop');
+                    showRecordingStatus(`Recording for ${button.dataset.field}...`);
+                }
+            } else {
+                const audioBlob = await stopRecording();
+                button.classList.remove('recording');
+                button.querySelector('i').classList.replace('fa-stop', 'fa-microphone');
+                hideRecordingStatus();
+                await processAudio(audioBlob, button.dataset.field);
+            }
+        }
+
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.addEventListener('dataavailable', event => {
+                    audioChunks.push(event.data);
+                });
+
+                mediaRecorder.start();
+                return true;
+            } catch (err) {
+                showStatus('Error accessing microphone. Please check permissions.', 'error');
+                return false;
+            }
+        }
+
+        function stopRecording() {
+            return new Promise(resolve => {
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    resolve(audioBlob);
+                };
+                mediaRecorder.stop();
+            });
+        }
+
+        function calculateAge() {
+            const dobInput = document.getElementById('dob');
+            const ageInput = document.getElementById('age');
+            
+            if (dobInput.value) {
+                const [day, month, year] = dobInput.value.split(' ').map(Number);
+                const dob = new Date(year, month - 1, day);
+                const today = new Date();
+                let age = today.getFullYear() - dob.getFullYear();
+                
+                if (today.getMonth() < dob.getMonth() || 
+                    (today.getMonth() === dob.getMonth() && today.getDate() < dob.getDate())) {
+                    age--;
+                }
+                
+                ageInput.value = age;
+            }
+        }
+
+        async function processAudio(audioBlob, field) {
+            const formData = new FormData();
+            formData.append('audio', audioBlob, 'recording.wav');
+
+            showStatus('Processing audio...', 'info');
+
+            try {
+                const response = await fetch('/api/process_audio', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error('Network response was not ok');
+
+                const result = await response.json();
+                if (result.success) {
+                    if (field === 'full') {
+                        Object.entries(result.data).forEach(([key, value]) => {
+                            const input = document.getElementById(key);
+                            if (input) {
+                                input.value = value;
+                                if (key === 'dob') calculateAge();
+                            }
+                        });
+                        showStatus('Information processed successfully', 'success');
+                    } else {
+                        const input = document.getElementById(field);
+                        if (input) {
+                            input.value = result.data[field];
+                            if (field === 'dob') calculateAge();
+                        }
+                        showStatus(`${field} recorded successfully`, 'success');
+                    }
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                showStatus(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        function showRecordingStatus(message) {
+            const status = document.getElementById('recordingStatus');
+            status.textContent = message;
+            status.style.display = 'block';
+        }
+
+        function hideRecordingStatus() {
+            document.getElementById('recordingStatus').style.display = 'none';
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = type === 'success' ? 'status-success' : 'status-error';
+            status.style.display = 'block';
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 3000);
+        }
+
+        async function handleSubmit(e) {
+    e.preventDefault();
+    
+    // Get values directly from form fields
+    const formData = {
+        name: document.getElementById('name').value.trim(),
+        dob: document.getElementById('dob').value.trim(),
+        age: document.getElementById('age').value.trim(),
+        bloodGroup: document.getElementById('bloodGroup').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        reason: document.getElementById('reason').value.trim()  // Get reason value
+    };
+
+    // Validate reason field
+    if (!formData.reason) {
+        showStatus('Please enter a reason for visit', 'error');
+        return;
+    }
+
+    // Save to both localStorage and sessionStorage
+    localStorage.setItem('formData', JSON.stringify(formData));
+    sessionStorage.setItem('basicInfo', JSON.stringify(formData));
+
+    try {
+        const response = await fetch('/api/save_registration', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+        if (result.success) {
+            window.location.href = '/page2';
+        } else {
+            showStatus(result.error || 'Error saving information', 'error');
+        }
+    } catch (error) {
+        showStatus('Error saving information. Please try again.', 'error');
+    }
+}
+    </script>
+</body>
+</html>

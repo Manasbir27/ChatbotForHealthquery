@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Complete</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --hover-color: #45a049;
+            --secondary-color: #2196F3;
+            --text-color: #333;
+            --background-color: #f5f5f5;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .thank-you {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+        }
+
+        .summary h3 {
+            color: var(--text-color);
+            margin-top: 0;
+        }
+
+        #formSummary {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .field {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 1rem;
+            padding: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .field-label {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .new-form-btn {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .new-form-btn:hover {
+            background-color: #1976D2;
+            transform: translateY(-2px);
+        }
+
+        .diagnosis-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .diagnosis-btn:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="thank-you" class="thank-you">Thank You!</h1>
+        
+        <p style="text-align: center;">Your registration has been successfully submitted.</p>
+        
+        <div class="summary">
+            <h3>Registration Summary</h3>
+            <div id="formSummary"></div>
+        </div>
+        
+        <div class="button-group">
+            <a href="/" class="btn new-form-btn" onclick="resetForm()">Fill New Form</a>
+            <button class="btn diagnosis-btn" onclick="redirectToDiagnosis()">Go to Diagnosis</button>
+        </div>
+    </div>
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            displayFormSummary();
+        });
+    
+        function displayFormSummary() {
+            const formData = JSON.parse(localStorage.getItem('formData')) || {};
+            const formSummary = document.getElementById('formSummary');
+            
+            const fields = {
+                'name': 'Name',
+                'dob': 'Date of Birth',
+                'age': 'Age',
+                'bloodGroup': 'Blood Group',
+                'address': 'Address',
+                'phone': 'Phone',
+                'email': 'Email',
+                'reason': 'Reason for Visit'
+            };
+    
+            formSummary.innerHTML = '';
+            
+            for (const [key, label] of Object.entries(fields)) {
+                if (formData[key]) {
+                    const field = document.createElement('div');
+                    field.className = 'field';
+                    field.innerHTML = `
+                        <span class="field-label">${label}:</span>
+                        <span class="field-value" data-field="${key}">${formData[key]}</span>
+                    `;
+                    formSummary.appendChild(field);
+                }
+            }
+        }
+    
+        function redirectToDiagnosis() {
+    // Try both storage methods
+    const formData = JSON.parse(localStorage.getItem('formData')) || 
+                    JSON.parse(sessionStorage.getItem('basicInfo')) || {};
+    
+    const reason = formData.reason;
+    
+    console.log('Form Data:', formData); // Debug log
+    console.log('Reason:', reason); // Debug log
+
+    if (!reason) {
+        alert('No reason for visit found. Please ensure you complete the registration form from the beginning.');
+        return;
+    }
+
+    // Redirect to diagnosis with reason
+    window.location.href = `/diagnosis?reason=${encodeURIComponent(reason)}`;
+}
+    </script>
+</body>
+</html>

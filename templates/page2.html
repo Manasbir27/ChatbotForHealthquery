@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Registration - Medical History</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5f5f5;
+            --text-color: #333;
+            --border-color: #ddd;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .step {
+            position: relative;
+            flex: 1;
+            text-align: center;
+            color: var(--border-color);
+        }
+
+        .step.active {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--border-color);
+            top: 50%;
+            left: 50%;
+            z-index: -1;
+        }
+
+        .step.active::after {
+            background: var(--primary-color);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .required::after {
+            content: ' *';
+            color: var(--error-color);
+        }
+
+        .input-with-record {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-start;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .record-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .record-btn:hover {
+            background-color: #357abd;
+            transform: translateY(-1px);
+        }
+
+        .record-btn.recording {
+            background-color: var(--error-color);
+            animation: pulse 1.5s infinite;
+        }
+
+        .next-btn {
+            background: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 2rem;
+            transition: all 0.3s;
+        }
+
+        .next-btn:hover {
+            background-color: #218838;
+            transform: translateY(-1px);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 1rem;
+            }
+            
+            .section {
+                padding: 1rem;
+            }
+
+            .progress-bar {
+                font-size: 0.9rem;
+            }
+        }
+
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .condition-group {
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .condition-group h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: normal;
+        }
+
+        .hidden-field {
+            display: none;
+            margin-top: 0.5rem;
+        }
+
+        .hidden-field.active {
+            display: block;
+        }
+
+        .medication-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .medication-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .remove-btn {
+            background: var(--error-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .back-btn {
+            background: var(--border-color);
+            flex: 1;
+        }
+
+        .next-btn {
+            flex: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Registration System</h1>
+        <div class="progress-bar">
+            <div class="step">Basic Info</div>
+            <div class="step active">Medical History</div>
+            <div class="step">Social History</div>
+            <div class="step">Review & Submit</div>
+        </div>
+
+        <form id="page2Form">
+            <div class="section">
+                <h2>Medical History</h2>
+
+                <!-- Medical Conditions -->
+                <div class="condition-group">
+                    <h3>Current Medical Conditions</h3>
+                    <div id="conditionsList">
+                        <div class="form-group">
+                            <label for="heartDisease">Heart Disease</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="heartDisease" value="yes"> Yes</label>
+                                <label><input type="radio" name="heartDisease" value="no" checked> No</label>
+                            </div>
+                            <div class="hidden-field" id="heartDiseaseDetails">
+                                <textarea placeholder="Please provide details"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="diabetes">Diabetes</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="diabetes" value="yes"> Yes</label>
+                                <label><input type="radio" name="diabetes" value="no" checked> No</label>
+                            </div>
+                            <div class="hidden-field" id="diabetesDetails">
+                                <textarea placeholder="Please provide details"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hypertension">Hypertension</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="hypertension" value="yes"> Yes</label>
+                                <label><input type="radio" name="hypertension" value="no" checked> No</label>
+                            </div>
+                            <div class="hidden-field" id="hypertensionDetails">
+                                <textarea placeholder="Please provide details"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Add more conditions as needed -->
+                    </div>
+                </div>
+
+                <!-- Medications -->
+                <div class="condition-group">
+                    <h3>Current Medications</h3>
+                    <div id="medicationsList">
+                        <ul class="medication-list"></ul>
+                        <button type="button" class="add-btn" onclick="addMedication()">
+                            <i class="fas fa-plus"></i> Add Medication
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Allergies -->
+                <div class="condition-group">
+                    <h3>Allergies</h3>
+                    <div id="allergiesList">
+                        <ul class="medication-list"></ul>
+                        <button type="button" class="add-btn" onclick="addAllergy()">
+                            <i class="fas fa-plus"></i> Add Allergy
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Past Surgeries -->
+                <div class="condition-group">
+                    <h3>Past Surgeries</h3>
+                    <div id="surgeriesList">
+                        <ul class="medication-list"></ul>
+                        <button type="button" class="add-btn" onclick="addSurgery()">
+                            <i class="fas fa-plus"></i> Add Surgery
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="nav-buttons">
+                    <button type="button" class="next-btn back-btn" onclick="goBack()">Back</button>
+                    <button type="submit" class="next-btn">
+                        <span class="spinner"></span>
+                        Next: Social History
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Audio recorder class
+        class AudioRecorder {
+            constructor() {
+                this.mediaRecorder = null;
+                this.audioChunks = [];
+            }
+        
+            async startRecording() {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    this.mediaRecorder = new MediaRecorder(stream);
+                    this.audioChunks = [];
+        
+                    this.mediaRecorder.ondataavailable = (event) => {
+                        this.audioChunks.push(event.data);
+                    };
+        
+                    this.mediaRecorder.start();
+                    return true;
+                } catch (error) {
+                    console.error('Error starting recording:', error);
+                    alert('Unable to access microphone. Please check permissions.');
+                    return false;
+                }
+            }
+        
+            stopRecording() {
+                return new Promise((resolve) => {
+                    this.mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' });
+                        resolve(audioBlob);
+                    };
+                    this.mediaRecorder.stop();
+                });
+            }
+        }
+        
+        // Medical History Form Handler
+        class MedicalHistoryForm {
+            constructor() {
+                this.form = document.getElementById('page2Form');
+                this.spinner = document.querySelector('.spinner');
+                this.recorder = new AudioRecorder();
+                this.setupEventListeners();
+                this.loadSavedData();
+            }
+        
+            setupEventListeners() {
+                // Form submission
+                this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+        
+                // Record buttons
+                document.querySelectorAll('.record-btn').forEach(button => {
+                    button.addEventListener('click', () => this.handleRecording(button));
+                });
+        
+                // Radio buttons for conditions
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        const condition = e.target.name;
+                        const detailsDiv = document.getElementById(`${condition}Details`);
+                        detailsDiv.classList.toggle('active', e.target.value === 'yes');
+                        if (e.target.value === 'no') {
+                            const textarea = detailsDiv.querySelector('textarea');
+                            if (textarea) textarea.value = '';
+                        }
+                    });
+                });
+            }
+        
+            async handleRecording(button) {
+                if (!button.classList.contains('recording')) {
+                    const started = await this.recorder.startRecording();
+                    if (started) {
+                        button.classList.add('recording');
+                        button.querySelector('i').classList.replace('fa-microphone', 'fa-stop');
+                    }
+                } else {
+                    const audioBlob = await this.recorder.stopRecording();
+                    button.classList.remove('recording');
+                    button.querySelector('i').classList.replace('fa-stop', 'fa-microphone');
+                    await this.processAudioRecording(audioBlob, button.dataset.field);
+                }
+            }
+        
+            async processAudioRecording(audioBlob, fieldId) {
+                const formData = new FormData();
+                formData.append('audio', audioBlob, 'recording.wav');
+                formData.append('field', fieldId);
+        
+                try {
+                    const response = await fetch('/upload_audio', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        // Handle successful transcription
+                        if (data.transcription) {
+                            const field = document.getElementById(fieldId);
+                            if (field) field.value = data.transcription;
+                        }
+                    } else {
+                        throw new Error('Audio processing failed');
+                    }
+                } catch (error) {
+                    console.error('Error processing audio:', error);
+                    alert('Error processing audio. Please try again.');
+                }
+            }
+        
+            addMedication() {
+                const list = document.querySelector('#medicationsList .medication-list');
+                const item = document.createElement('li');
+                item.className = 'medication-item';
+                item.innerHTML = `
+                    <input type="text" placeholder="Medication name" required>
+                    <input type="text" placeholder="Dosage" required>
+                    <input type="text" placeholder="Frequency" required>
+                    <button type="button" class="remove-btn" onclick="this.closest('.medication-item').remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                list.appendChild(item);
+            }
+        
+            addAllergy() {
+                const list = document.querySelector('#allergiesList .medication-list');
+                const item = document.createElement('li');
+                item.className = 'medication-item';
+                item.innerHTML = `
+                    <input type="text" placeholder="Allergy" required>
+                    <input type="text" placeholder="Reaction" required>
+                    <button type="button" class="remove-btn" onclick="this.closest('.medication-item').remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                list.appendChild(item);
+            }
+        
+            addSurgery() {
+                const list = document.querySelector('#surgeriesList .medication-list');
+                const item = document.createElement('li');
+                item.className = 'medication-item';
+                item.innerHTML = `
+                    <input type="text" placeholder="Surgery type" required>
+                    <input type="date" required>
+                    <textarea placeholder="Additional details"></textarea>
+                    <button type="button" class="remove-btn" onclick="this.closest('.medication-item').remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                list.appendChild(item);
+            }
+        
+            validateForm() {
+                let isValid = true;
+                const errorMessages = [];
+        
+                // Validate conditions
+                document.querySelectorAll('.condition-group input[type="radio"]:checked[value="yes"]').forEach(radio => {
+                    const details = document.querySelector(`#${radio.name}Details textarea`);
+                    if (details && !details.value.trim()) {
+                        isValid = false;
+                        errorMessages.push(`Please provide details for ${radio.name.replace(/([A-Z])/g, ' $1').toLowerCase()}`);
+                    }
+                });
+        
+                // Validate medications
+                document.querySelectorAll('#medicationsList .medication-item').forEach((item, index) => {
+                    const inputs = item.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        if (!input.value.trim()) {
+                            isValid = false;
+                            errorMessages.push(`Please complete all fields for medication ${index + 1}`);
+                        }
+                    });
+                });
+        
+                // Validate allergies
+                document.querySelectorAll('#allergiesList .medication-item').forEach((item, index) => {
+                    const inputs = item.querySelectorAll('input');
+                    inputs.forEach(input => {
+                        if (!input.value.trim()) {
+                            isValid = false;
+                            errorMessages.push(`Please complete all fields for allergy ${index + 1}`);
+                        }
+                    });
+                });
+        
+                if (!isValid) {
+                    alert(errorMessages.join('\n'));
+                }
+                return isValid;
+            }
+        
+            collectFormData() {
+    const formData = {
+        conditions: {},
+        medications: [],
+        allergies: [],
+        surgeries: []
+    };
+
+    // Collect conditions
+    const conditionInputs = document.querySelectorAll('input[type="radio"]:checked');
+    conditionInputs.forEach(radio => {
+        const conditionName = radio.name;
+        const isYes = radio.value === 'yes';
+        const detailsDiv = document.getElementById(`${conditionName}Details`);
+        const details = isYes && detailsDiv ? detailsDiv.querySelector('textarea')?.value || '' : '';
+        
+        formData.conditions[conditionName] = {
+            value: radio.value,
+            details: details
+        };
+    });
+
+    // Collect medications
+    document.querySelectorAll('#medicationsList .medication-item').forEach(item => {
+        const inputs = item.querySelectorAll('input');
+        if (inputs.length >= 3) {
+            formData.medications.push({
+                name: inputs[0].value,
+                dosage: inputs[1].value,
+                frequency: inputs[2].value
+            });
+        }
+    });
+
+    // Collect allergies
+    document.querySelectorAll('#allergiesList .medication-item').forEach(item => {
+        const inputs = item.querySelectorAll('input');
+        if (inputs.length >= 2) {
+            formData.allergies.push({
+                allergy: inputs[0].value,
+                reaction: inputs[1].value
+            });
+        }
+    });
+
+    // Collect surgeries
+    document.querySelectorAll('#surgeriesList .medication-item').forEach(item => {
+        const inputs = item.querySelectorAll('input');
+        const textarea = item.querySelector('textarea');
+        if (inputs.length >= 2) {
+            formData.surgeries.push({
+                type: inputs[0].value,
+                date: inputs[1].value,
+                details: textarea?.value || ''
+            });
+        }
+    });
+
+    return formData;
+}
+        
+            loadSavedData() {
+                const savedData = sessionStorage.getItem('page2Data');
+                if (!savedData) return;
+        
+                const data = JSON.parse(savedData);
+        
+                // Load conditions
+                Object.entries(data.conditions).forEach(([condition, details]) => {
+                    const radio = document.querySelector(`input[name="${condition}"][value="${details.value}"]`);
+                    if (radio) {
+                        radio.checked = true;
+                        if (details.value === 'yes') {
+                            const detailsDiv = document.getElementById(`${condition}Details`);
+                            detailsDiv.classList.add('active');
+                            detailsDiv.querySelector('textarea').value = details.details;
+                        }
+                    }
+                });
+        
+                // Load medications
+                data.medications.forEach(med => {
+                    const list = document.querySelector('#medicationsList .medication-list');
+                    const item = document.createElement('li');
+                    item.className = 'medication-item';
+                    item.innerHTML = `
+                        <input type="text" value="${med.name}" required>
+                        <input type="text" value="${med.dosage}" required>
+                        <input type="text" value="${med.frequency}" required>
+                        <button type="button" class="remove-btn" onclick="this.closest('.medication-item').remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    list.appendChild(item);
+                });
+        
+                // Load allergies and surgeries similarly...
+                // [Similar loading code for allergies and surgeries]
+            }
+        
+            async handleSubmit(e) {
+    e.preventDefault();
+    
+    if (!this.validateForm()) return;
+
+    this.spinner.style.display = 'inline-block';
+    try {
+        const formData = this.collectFormData();
+        if (!formData) throw new Error('Invalid form data');
+        
+        sessionStorage.setItem('page2Data', JSON.stringify(formData));
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        window.location.href = '/page3';
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error saving form data. Please try again.');
+        this.spinner.style.display = 'none';
+    }
+}
+        }
+        
+        // Initialize form handler
+        document.addEventListener('DOMContentLoaded', () => {
+            const formHandler = new MedicalHistoryForm();
+            
+            // Global functions for add buttons
+            window.addMedication = () => formHandler.addMedication();
+            window.addAllergy = () => formHandler.addAllergy();
+            window.addSurgery = () => formHandler.addSurgery();
+            
+            // Back button functionality
+            window.goBack = () => {
+                window.location.href = '/';
+            };
+        });
+        </script>
+</body>
+</html>
